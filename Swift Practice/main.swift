@@ -1,5 +1,7 @@
 import Foundation
 
+//Data Types
+
 //var number:Int = 17
 //var otherNumber: Double = 17
 //let word: String = "hello"
@@ -14,11 +16,14 @@ import Foundation
 //print(boolean)
 //print(anotherNumber)
 
+//String Interpolation
+
 //var amountOfApples = 17
 //print("I have \(amountOfApples + 5) apples.")
 
+//Optionals
 //var name:String? = "Preston"
-
+//
 //print("Enter your name.")
 //
 //let name = readLine()
@@ -29,6 +34,8 @@ import Foundation
 //else {
 //    print("Hello!")
 //}
+
+//Homework Wizard (Project) - Optionals
 
 //print("I'm the Homework Wizard!")
 //print("I can add, subtract, multiply, or divide any two numbers!")
@@ -65,7 +72,7 @@ import Foundation
 //else if unwrappedOperation == "division" {
 //    print("The answer is \(Double(unwrappedNum1)! / Double(unwrappedNum2)!)!")
 //}
-
+/*
 print("I'm the Dictionary With Only 10 Words!")
 print("Type in one of these words to see its definition!")
 print("dictionary, recursion, glossary, déjà vu, ambiguous, lamentation, forestall, clickbait, kerfuffle, gullible")
@@ -90,3 +97,95 @@ guard let unwrappedWord = word
 }
 
 print(dictionary[unwrappedWord]!)
+*/
+
+func celsiusToFahrenheit(temp:Double) -> Double {
+    return 9/5 * temp + 32
+}
+func fahrenheitToCelsius(temp:Double) -> Double {
+    return 5/9 * (temp - 32)
+}
+func celsiusToKelvin(temp:Double) -> Double {
+    return temp + 273.15
+}
+func fahrenheitToKelvin(temp: Double) -> Double {
+    return celsiusToKelvin(temp: fahrenheitToCelsius(temp: temp))
+}
+func kelvinToCelsius(temp: Double) -> Double {
+    return temp - 273.15
+}
+func kelvinToFahrenheit(temp: Double) -> Double {
+    return celsiusToFahrenheit(temp: kelvinToCelsius(temp: temp))
+}
+/*
+print("Enter a temperature (in F, C, or K).")
+
+let rawTemp = readLine()
+
+if let unwrappedTemp = rawTemp {
+    
+    let temp = unwrappedTemp.components(separatedBy: " ") // ["32", "F"]
+    
+    if(temp[1] == "F") {
+        print(" = \(fahrenheitToCelsius(temp: Double(temp[0])!)) C")
+        print(" = \(fahrenheitToKelvin(temp: Double(temp[0])!)) K")
+    }
+    else if(temp[1] == "C") {
+        print(" = \(celsiusToFahrenheit(temp: Double(temp[0])!)) F")
+        print(" = \(celsiusToKelvin(temp: Double(temp[0])!)) K")
+    }
+    else if(temp[1] == "K") {
+        print(" = \(kelvinToCelsius(temp: Double(temp[0])!)) C")
+        print(" = \(kelvinToFahrenheit(temp: Double(temp[0])!)) F")
+    }
+    
+}
+else {
+    print("something weird happened!")
+    exit(1)
+}
+*/
+
+/*
+print("Enter an expression.")
+
+let rawExpression = readLine()
+
+if let unwrappedExpression = rawExpression {
+    let expression = unwrappedExpression.components(separatedBy: " ")
+    
+    if(expression[1] == "+") {
+        print(Double(expression[0])! + Double(expression[2])!)
+    }
+    else if(expression[1] == "-") {
+        print(Double(expression[0])! - Double(expression[2])!)
+    }
+    else if(expression[1] == "*") {
+        print(Double(expression[0])! * Double(expression[2])!)
+    }
+    else if(expression[1] == "/") {
+        print(Double(expression[0])! / Double(expression[2])!)
+    }
+    
+}
+else {
+    print("something weird happened...")
+    exit(1)
+}
+*/
+
+print("Enter a number.")
+let limit = readLine()
+
+if let unwrappedLimit = limit {
+    
+    var sum = 0
+    let repeats = Int(unwrappedLimit)!
+    
+    for i in 1...repeats {
+        sum += i
+    }
+    print(sum)
+    
+}
+
