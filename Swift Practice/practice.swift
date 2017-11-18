@@ -79,7 +79,7 @@ func practice() {
     //}
     
     
-    //Collections (Dictionaries)
+    //Collections: Dictionaries
     
     /*
      print("I'm the Dictionary With Only 10 Words!")
@@ -107,6 +107,9 @@ func practice() {
      
      print(dictionary[unwrappedWord]!)
      */
+    
+    
+    //Functions
     
     func celsiusToFahrenheit(temp:Double) -> Double {
         return 9/5 * temp + 32
@@ -155,6 +158,9 @@ func practice() {
      }
      */
     
+    
+    //Expressions (Project) 
+    
     /*
      print("Enter an expression.")
      
@@ -182,6 +188,10 @@ func practice() {
      exit(1)
      }
      */
+    
+    
+    //For Loops
+    
     /*
      print("Enter a number.")
      let limit = readLine()
@@ -199,6 +209,9 @@ func practice() {
      }
      
      */
+    
+    
+    //Recursion
     
     func factorial(x:Int) -> Int {
         if x > 1 {
