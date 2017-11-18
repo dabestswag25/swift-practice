@@ -1,5 +1,5 @@
 //
-//  main.swift
+//  school.swift
 //  Swift Practice
 //
 //  Created by UCode on 11/17/17.
@@ -8,4 +8,6 @@
 
 import Foundation
 
-schoolProgram()
+func schoolProgram() {
+    print("hello")
+}
