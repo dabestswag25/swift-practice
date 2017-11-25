@@ -20,34 +20,127 @@ struct Student {
     
 }
 
-func studentGradeAverage(students: [Student]) -> Double {
-    var sum: Double = 0
+struct Class {
     
-    for student in students {
-        sum += student.grade
+    var name: String
+    var teacher: String
+    var students: [Student]
+    
+    func listStudents() -> String {
+        var output:String = ""
+        for student in students {
+            output += student.description() + "\n"
+        }
+        return output
     }
     
+    func studentGradeAverage() -> Double {
+        var sum: Double = 0
+        
+        for student in students {
+            sum += student.grade
+        }
+        
+        return sum / Double(students.count)
+    }
     
-    return sum / Double(students.count)
 }
 
-func listOfStudents(students: [Student]) -> String {
-    for student in students {
-        print()
-    }
+struct Grade {
+    
+    var gradeLevel: Int
+    var classes: [String: Class]
+    
+}
+
+struct School {
+    
+    var name: String
+    var grades: [Int: Grade]
+    
 }
 
 func schoolProgram() {
+    /*
+    let richardsonMiddleSchool = School(name: "Richardson Middle School", grades: [
+        8: Grade(gradeLevel: 8, classes: [
+            "Math 101": Class(name: "math", teacher: "Mr. E", students: [
+                Student(id: 1, name: "Preston", grade: 4.0),
+                Student(id: 2, name: "Nathan", grade: 3.3),
+                Student(id: 3, name: "Josh", grade: 3.8),
+                Student(id: 4, name: "No Name", grade: 2.7),
+                Student(id: 5, name: "Another Name", grade: 3.5)
+            ])
+        ])
+    ])
     
-    let students = [
-        Student(id: 1, name: "Preston", grade: 4.0),
-        Student(id: 2, name: "Nathan", grade: 3.3),
-        Student(id: 3, name: "Josh", grade: 3.8),
-        Student(id: 4, name: "No Name", grade: 2.7),
-        Student(id: 5, name: "Another Name", grade: 3.5)
-    ]
+    print(richardsonMiddleSchool.grades[8]!.classes["Math 101"]!.students.first!.description())
+    */
     
-    print(studentGradeAverage(students: students))
+    var keepLooping = true
+    
+    var students = [Student]()
+    
+    print("Welcome to the Student Enroller. Here are your choices:")
+    
+    while keepLooping {
+        
+        
+        //for student in students {
+        //    print(student.description())
+        //}
+        
+        print("There \(students.count != 1 ? "are" : "is") \(pluralize(n: students.count, singular: "student", plural: "students")).")
+        
+        print("Type any one of the following choices:\n  add:  add a student\n  list: list the students\n  exit: stop adding\n")
+        let response = readLine()
+        
+        if let unwrappedResponse = response {
+            
+            if unwrappedResponse == "add" {
+                
+                var newStudent = Student(id: 0, name: "", grade: 0.0)
+                
+                print("What's the student's name?")
+                let newName = readLine()
+                
+                if let unwrappedName = newName {
+                    newStudent.name = unwrappedName
+                }
+                
+                print("What's the student's ID?")
+                let newId = readLine()
+                
+                if let unwrappedId = newId {
+                    newStudent.id = Int(unwrappedId)!
+                }
+                
+                print("What's the student's grade?")
+                let newGrade = readLine()
+                
+                if let unwrappedGrade = newGrade {
+                    newStudent.grade = Double(unwrappedGrade)!
+                }
+                
+                //print(newStudent.description())
+                students.append(newStudent)
+            }
+            else if unwrappedResponse == "list" {
+                for student in students {
+                    print(student.description())
+                }
+            }
+            else if unwrappedResponse == "exit" {
+                keepLooping = false
+            }
+            
+        }
+        
+        
+    }
+    
+    
+    
     
 }
     
