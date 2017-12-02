@@ -44,12 +44,123 @@ struct Class {
         return sum / Double(students.count)
     }
     
+    func classDescription() -> String {
+        return "\(name) taught by \(teacher) (\(pluralize(n: students.count, singular: "student", plural: "students")))"
+    }
+    
+    mutating func addStudents() {
+        
+        var loop = true
+        
+        while loop {
+            
+            print("There \(students.count != 1 ? "are" : "is") \(pluralize(n: students.count, singular: "student", plural: "students")).")
+            print(listStudents())
+            print("Type any one of the following choices:\n  add:  add a student\n  done: stop adding\n")
+            
+            let response = readLine()
+            
+            if let unwrappedResponse = response {
+                
+                if unwrappedResponse == "add" {
+                    addStudent()
+                }
+                else if unwrappedResponse == "done" {
+                    loop = false
+                }
+                
+            }
+        }
+        
+    }
+    
+    mutating func addStudent() {
+        
+        var newStudent = Student(id: 0, name: "", grade: 0.0)
+        
+        print("What's the student's name?")
+        let newName = readLine()
+        
+        if let unwrappedName = newName {
+            newStudent.name = unwrappedName
+        }
+        
+        print("What's the student's ID?")
+        let newId = readLine()
+        
+        if let unwrappedId = newId {
+            newStudent.id = Int(unwrappedId)!
+        }
+        
+        print("What's the student's grade?")
+        let newGrade = readLine()
+        
+        if let unwrappedGrade = newGrade {
+            newStudent.grade = Double(unwrappedGrade)!
+        }
+        
+        //print(newStudent.description())
+        students.append(newStudent)
+        
+    }
+    
 }
 
 struct Grade {
     
     var gradeLevel: Int
-    var classes: [String: Class]
+    var classes: [Class]
+    
+    func listClasses() -> String {
+        var output:String = ""
+        for classs in classes {
+            output += classs.classDescription() + "\n"
+        }
+        return output
+    }
+    
+    mutating func addClasses() {
+        var classLoop = true
+        
+        while classLoop {
+            
+            print("There \(classes.count != 1 ? "are" : "is") \(pluralize(n: classes.count, singular: "class", plural: "classes")).")
+            print(listClasses())
+            print("Type any one of the following choices:\n  add:  add a class\n  done: stop adding\n")
+            let response = readLine()
+            
+            if let unwrappedResponse = response {
+                if unwrappedResponse == "add" {
+                    addClass()
+                }
+                else if unwrappedResponse == "done" {
+                    classLoop = false
+                }
+            }
+        }
+    }
+    mutating func addClass() {
+        var newClass = Class(name: "", teacher: "", students: [])
+        
+        print("What is the subject of the class?")
+        let newName = readLine()
+        
+        if let unwrappedName = newName {
+            newClass.name = unwrappedName
+        }
+        
+        print("Who is the teacher of this class?")
+        let newTeacher = readLine()
+        
+        if let unwrappedTeacher = newTeacher {
+            newClass.teacher = unwrappedTeacher
+        }
+        
+        newClass.addStudents()
+        
+        classes.append(newClass)
+
+    }
     
 }
 
@@ -61,6 +172,14 @@ struct School {
 }
 
 func schoolProgram() {
+    
+    var myGrade = Grade(gradeLevel: 5, classes: [])
+    
+    var mathClass = Class(name: "Linear Algebra & Differential Equations", teacher: "Paul Yun", students: [])
+    
+    myGrade.addClasses()
+    
+    
     /*
     let richardsonMiddleSchool = School(name: "Richardson Middle School", grades: [
         8: Grade(gradeLevel: 8, classes: [
@@ -77,12 +196,56 @@ func schoolProgram() {
     print(richardsonMiddleSchool.grades[8]!.classes["Math 101"]!.students.first!.description())
     */
     
-    var keepLooping = true
+    /*
+    var classLoop = true
     
     var students = [Student]()
     
-    print("Welcome to the Student Enroller. Here are your choices:")
+    print("Welcome to the Class Manager.")
     
+    var classes = [Class]()
+    
+    while classLoop {
+        
+        print("There \(classes.count != 1 ? "are" : "is") \(pluralize(n: classes.count, singular: "class", plural: "classes")).")
+    
+        print("Type any one of the following choices:\n  add:  add a class\n  list: list the classes\n  exit: stop adding\n")
+        let response = readLine()
+        
+        if let unwrappedResponse = response {
+            if unwrappedResponse == "add" {
+                var newClass = Class(name: "", teacher: "", students: [])
+                
+                print("What is the subject of the class?")
+                let newName = readLine()
+                
+                if let unwrappedName = newName {
+                    newClass.name = unwrappedName
+                }
+                
+                print("Who is the teacher of this class?")
+                let newTeacher = readLine()
+                
+                if let unwrappedTeacher = newTeacher {
+                    newClass.teacher = unwrappedTeacher
+                }
+                
+                classes.append(newClass)
+            }
+            else if unwrappedResponse == "list" {
+                for classs in classes {
+                    print(classs.classDescription())
+                }
+            }
+            else if unwrappedResponse == "exit" {
+                classLoop = false
+            }
+        }
+        
+    }
+ */
+    
+    /*
     while keepLooping {
         
         
@@ -138,7 +301,7 @@ func schoolProgram() {
         
         
     }
-    
+    */
     
     
     
