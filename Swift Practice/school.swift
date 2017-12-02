@@ -119,6 +119,10 @@ struct Grade {
         return output
     }
     
+    func gradeDescription()  -> String {
+        return "\(gradeLevel)th Grade"
+    }
+    
     mutating func addClasses() {
         var classLoop = true
         
@@ -167,18 +171,65 @@ struct Grade {
 struct School {
     
     var name: String
-    var grades: [Int: Grade]
+    var grades: [Grade]
+    
+    func listGrades() -> String {
+        var output:String = ""
+        for grade in grades {
+            output += grade.gradeDescription() + "\n"
+        }
+        return output
+    }
+    
+    mutating func addGrade() {
+        var newGrade = Grade(gradeLevel: 0, classes: [])
+        
+        print("What is the grade level?")
+        let newGradeLevel = readLine()
+        
+        if let unwrappedGradeLevel = newGradeLevel {
+            newGrade.gradeLevel = Int(unwrappedGradeLevel)!
+        }
+        
+        newGrade.addClasses()
+        
+        grades.append(newGrade)
+    }
+    mutating func addGrades() {
+        var gradeLoop = true
+        while gradeLoop {
+            
+            print("There \(grades.count != 1 ? "are" : "is") \(pluralize(n: grades.count, singular: "grade", plural: "grades")).")
+            print(listGrades())
+            print("Type any one of the following choices:\n  add:  add a grade\n  done: stop adding\n")
+            let response = readLine()
+            
+            if let unwrappedResponse = response {
+                if unwrappedResponse == "add" {
+                    addGrade()
+                }
+                else if unwrappedResponse == "done" {
+                    gradeLoop = false
+                }
+            }
+        }
+    
+    
+    }
     
 }
 
 func schoolProgram() {
     
-    var myGrade = Grade(gradeLevel: 5, classes: [])
+    // var myGrade = Grade(gradeLevel: 5, classes: [])
     
-    var mathClass = Class(name: "Linear Algebra & Differential Equations", teacher: "Paul Yun", students: [])
+    // var mathClass = Class(name: "Linear Algebra & Differential Equations", teacher: "Paul Yun", students: [])
     
-    myGrade.addClasses()
+    // myGrade.addClasses()
     
+    var mySchool = School(name: "El Camino College", grades: [])
+    
+    mySchool.addGrades()
     
     /*
     let richardsonMiddleSchool = School(name: "Richardson Middle School", grades: [
@@ -306,4 +357,3 @@ func schoolProgram() {
     
     
 }
-    
