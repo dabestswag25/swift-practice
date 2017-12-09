@@ -8,28 +8,64 @@
 
 import Foundation
 
-struct Student {
+class Person {
     
-    var id:    Int
-    var name:  String
-    var grade: Double
+    var name: String
     
-    func description() -> String {
-        return "\(name) (\(id)) with GPA \(grade)"
+    init(name: String) {
+        self.name = name
     }
     
 }
 
-struct Class {
+class Student: Person, CustomStringConvertible {
+    
+    var id:    Int
+    var grade: Double
+    
+    var description: String {
+        return "\(name) [\(id)] with GPA \(grade)"
+    }
+    
+    init(id: Int, name: String, grade: Double) {
+        self.id = id
+        self.grade = grade
+        super.init(name: name)
+    }
+    
+}
+
+class Teacher: Person {
+    
+    var coolness: Double
+    
+    init(name: String, coolness: Double) {
+        self.coolness = coolness
+        super.init(name: name)
+    }
+    
+}
+
+class Class : CustomStringConvertible {
     
     var name: String
     var teacher: String
     var students: [Student]
     
+    var description: String {
+        return "\(name) taught by \(teacher) (\(pluralize(n: students.count, singular: "student", plural: "students")))"
+    }
+    
+    init(name: String, teacher: String, students: [Student]) {
+        self.name     = name
+        self.teacher  = teacher
+        self.students = students
+    }
+    
     func listStudents() -> String {
         var output:String = ""
         for student in students {
-            output += student.description() + "\n"
+            output += "\(student)\n"
         }
         return output
     }
@@ -44,11 +80,7 @@ struct Class {
         return sum / Double(students.count)
     }
     
-    func classDescription() -> String {
-        return "\(name) taught by \(teacher) (\(pluralize(n: students.count, singular: "student", plural: "students")))"
-    }
-    
-    mutating func addStudents() {
+    func addStudents() {
         
         var loop = true
         
@@ -74,7 +106,7 @@ struct Class {
         
     }
     
-    mutating func addStudent() {
+    func addStudent() {
         
         var newStudent = Student(id: 0, name: "", grade: 0.0)
         
@@ -106,24 +138,30 @@ struct Class {
     
 }
 
-struct Grade {
+class Grade : CustomStringConvertible {
     
     var gradeLevel: Int
     var classes: [Class]
     
+    var description: String {
+        return "\(gradeLevel)th Grade \(pluralize(n: classes.count, singular: "class", plural: "classes"))"
+    }
+    
+    init(gradeLevel: Int, classes: [Class]) {
+        self.gradeLevel = gradeLevel
+        self.classes    = classes
+    }
+    
     func listClasses() -> String {
         var output:String = ""
         for classs in classes {
-            output += classs.classDescription() + "\n"
+            output += "\(classs)\n"
         }
         return output
     }
+
     
-    func gradeDescription()  -> String {
-        return "\(gradeLevel)th Grade"
-    }
-    
-    mutating func addClasses() {
+    func addClasses() {
         var classLoop = true
         
         while classLoop {
@@ -143,7 +181,7 @@ struct Grade {
             }
         }
     }
-    mutating func addClass() {
+    func addClass() {
         var newClass = Class(name: "", teacher: "", students: [])
         
         print("What is the subject of the class?")
@@ -168,20 +206,25 @@ struct Grade {
     
 }
 
-struct School {
+class School {
     
     var name: String
     var grades: [Grade]
     
+    init(name: String, grades: [Grade]) {
+        self.name   = name
+        self.grades = grades
+    }
+    
     func listGrades() -> String {
         var output:String = ""
         for grade in grades {
-            output += grade.gradeDescription() + "\n"
+            output += "\(grade)\n"
         }
         return output
     }
     
-    mutating func addGrade() {
+    func addGrade() {
         var newGrade = Grade(gradeLevel: 0, classes: [])
         
         print("What is the grade level?")
@@ -195,7 +238,7 @@ struct School {
         
         grades.append(newGrade)
     }
-    mutating func addGrades() {
+    func addGrades() {
         var gradeLoop = true
         while gradeLoop {
             
